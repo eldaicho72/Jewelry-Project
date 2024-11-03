@@ -121,7 +121,12 @@ const _nav = [
       {
         component: CNavItem,
         name: 'Product Details',
-        to: '/500',
+        to: '',
+      },
+      {
+        component: CNavItem,
+        name: 'Product Details',
+        to: '',
       },
       {
         component: CNavItem,
