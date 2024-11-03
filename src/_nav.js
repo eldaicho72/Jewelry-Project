@@ -130,6 +130,11 @@ const _nav = [
       },
       {
         component: CNavItem,
+        name: 'Product Details',
+        to: '',
+      },
+      {
+        component: CNavItem,
         name: 'Export Options',
         to: '/500',
       },
