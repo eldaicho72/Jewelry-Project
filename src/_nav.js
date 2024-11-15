@@ -42,17 +42,53 @@ const _nav = [
   },
   {
     component: CNavItem,
-    name: 'Users',
-    to: '/theme/colors',
+    name: 'Add User',
+    to: '/add-user',
     icon: <CIcon icon={cilUser} customClassName="nav-icon" />,
   },
   {
-    component: CNavItem,
-    name: 'Roles',
-    to: '/buttons',
+    component: CNavGroup,
+    name: 'User Management',
+    to: '/user-management',
     icon: <CIcon icon={cilPeople} customClassName="nav-icon" />,
+    items: [
+      {
+        component: CNavItem,
+        name: 'User List',
+        to: '/user-management/user-list',
+      },
+      {
+        component: CNavItem,
+        name: 'Edit User',
+        to: '/user-management/edit-user',
+      },
+      {
+        component: CNavItem,
+        name: 'Delete User',
+        to: '/user-management/delete-user',
+      },
+      {
+        component: CNavItem,
+        name: 'Assign Roles',
+        to: '/user-management/assign-roles',
+      },
+      {
+        component: CNavItem,
+        name: 'Role List',
+        to: '/user-management/role-list',
+      },
+      {
+        component: CNavItem,
+        name: 'Edit Role',
+        to: '/user-management/edit-role',
+      },
+      {
+        component: CNavItem,
+        name: 'Add Role',
+        to: '/user-management/add-role',
+      },
+    ],
   },
-  
   {
     component: CNavTitle,
     name: 'Sales & Customer Management',
@@ -60,51 +96,49 @@ const _nav = [
   {
     component: CNavGroup,
     name: 'Customers',
-    to: '/base',
+    to: '/customers',
     icon: <CIcon icon={cilWc} customClassName="nav-icon" />,
     items: [
       {
         component: CNavItem,
         name: 'Customer Information',
-        to: '/base/accordion',
+        to: '/customers/customer-information',
       },
       {
         component: CNavItem,
         name: 'Billing Management',
-        to: '/base/breadcrumbs',
+        to: '/customers/billing-management',
       },
       {
         component: CNavItem,
         name: 'Reports & Analysis',
-        to: '/base/cards',
+        to: '/customers/reports-analysis',
       },
       {
         component: CNavItem,
         name: 'Notification Management',
-        to: '/base/carousels',
+        to: '/customers/notification-management',
       },
     ],
   },
   {
     component: CNavItem,
     name: 'Invoices',
-    to: '/buttons',
+    to: '/invoices',
     icon: <CIcon icon={cilDescription} customClassName="nav-icon" />,
   },
   {
     component: CNavItem,
     name: 'Payments',
-    to: '/buttons',
+    to: '/payments',
     icon: <CIcon icon={cilDollar} customClassName="nav-icon" />,
   },
   {
     component: CNavItem,
-    name: 'Payments Methods',
-    to: '/charts',
+    name: 'Payment Methods',
+    to: '/payment-methods',
     icon: <CIcon icon={cilWallet} customClassName="nav-icon" />,
   },
-  
-  
   {
     component: CNavTitle,
     name: 'Inventory & Products',
@@ -117,29 +151,29 @@ const _nav = [
       {
         component: CNavItem,
         name: 'Product List',
-        to: '/login',
+        to: '/products/product-list',
       },
       {
         component: CNavItem,
         name: 'Product Categories',
-        to: '/register',
+        to: '/products/product-categories',
       },
       {
         component: CNavItem,
         name: 'Administration Options',
-        to: '/404',
+        to: '/products/administration-options',
       },
       {
         component: CNavItem,
         name: 'Export Options',
-        to: '/500',
+        to: '/products/export-options',
       },
     ],
   },
   {
     component: CNavItem,
     name: 'Inventory Movements',
-    href: 'https://coreui.io/react/docs/templates/installation/',
+    to: '/inventory-movements',
     icon: <CIcon icon={cilLibrary} customClassName="nav-icon" />,
   },
   {
@@ -149,7 +183,7 @@ const _nav = [
   {
     component: CNavItem,
     name: 'Suppliers',
-    href: 'https://coreui.io/react/docs/templates/installation/',
+    to: '/suppliers',
     icon: <CIcon icon={cilContact} customClassName="nav-icon" />,
   },
   {
@@ -159,13 +193,13 @@ const _nav = [
   {
     component: CNavItem,
     name: 'Repairs',
-    href: 'https://coreui.io/react/docs/templates/installation/',
+    to: '/repairs',
     icon: <CIcon icon={cilPuzzle} customClassName="nav-icon" />,
   },
   {
     component: CNavItem,
     name: 'Manufacturing Orders',
-    href: 'https://coreui.io/react/docs/templates/installation/',
+    to: '/manufacturing-orders',
     icon: <CIcon icon={cilDiamond} customClassName="nav-icon" />,
   },
   {
@@ -175,7 +209,7 @@ const _nav = [
   {
     component: CNavGroup,
     name: 'Pages',
-    icon: <CIcon icon={cilMenu } customClassName="nav-icon" />,
+    icon: <CIcon icon={cilMenu} customClassName="nav-icon" />,
     items: [
       {
         component: CNavItem,
