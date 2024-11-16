@@ -52,32 +52,11 @@ const _nav = [
     name: 'Sales & Customer Management',
   },
   {
-    component: CNavGroup,
+    component: CNavItem,
     name: 'Customers',
     to: '/customers',
     icon: <CIcon icon={cilPeople} customClassName="nav-icon" />,
-    items: [
-      {
-        component: CNavItem,
-        name: 'Customer Information',
-        to: '/customers/customer-information',
-      },
-      {
-        component: CNavItem,
-        name: 'Billing Management',
-        to: '/customers/billing-management',
-      },
-      {
-        component: CNavItem,
-        name: 'Reports & Analysis',
-        to: '/customers/reports-analysis',
-      },
-      {
-        component: CNavItem,
-        name: 'Notification Management',
-        to: '/customers/notification-management',
-      },
-    ],
+  
   },
   {
     component: CNavItem,
