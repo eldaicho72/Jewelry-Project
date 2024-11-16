@@ -1,4 +1,5 @@
 import React from 'react'
+import { UserList } from './views/pages/users/UserList'
 
 const Dashboard = React.lazy(() => import('./views/dashboard/Dashboard'))
 const Colors = React.lazy(() => import('./views/theme/colors/Colors'))
@@ -97,6 +98,7 @@ const routes = [
   { path: '/notifications/modals', name: 'Modals', element: Modals },
   { path: '/notifications/toasts', name: 'Toasts', element: Toasts },
   { path: '/widgets', name: 'Widgets', element: Widgets },
+  { path: '/users', name: 'users', element: UserList },
 ]
 
 export default routes

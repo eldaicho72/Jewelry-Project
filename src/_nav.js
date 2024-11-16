@@ -42,53 +42,11 @@ const _nav = [
   },
   {
     component: CNavItem,
-    name: 'Add User',
-    to: '/add-user',
+    name: 'Users',
+    to: '/users',
     icon: <CIcon icon={cilUser} customClassName="nav-icon" />,
   },
-  {
-    component: CNavGroup,
-    name: 'User Management',
-    to: '/user-management',
-    icon: <CIcon icon={cilPeople} customClassName="nav-icon" />,
-    items: [
-      {
-        component: CNavItem,
-        name: 'User List',
-        to: '/user-management/user-list',
-      },
-      {
-        component: CNavItem,
-        name: 'Edit User',
-        to: '/user-management/edit-user',
-      },
-      {
-        component: CNavItem,
-        name: 'Delete User',
-        to: '/user-management/delete-user',
-      },
-      {
-        component: CNavItem,
-        name: 'Assign Roles',
-        to: '/user-management/assign-roles',
-      },
-      {
-        component: CNavItem,
-        name: 'Role List',
-        to: '/user-management/role-list',
-      },
-      {
-        component: CNavItem,
-        name: 'Edit Role',
-        to: '/user-management/edit-role',
-      },
-      {
-        component: CNavItem,
-        name: 'Add Role',
-        to: '/user-management/add-role',
-      },
-    ],
-  },
+  
   {
     component: CNavTitle,
     name: 'Sales & Customer Management',
@@ -97,7 +55,7 @@ const _nav = [
     component: CNavGroup,
     name: 'Customers',
     to: '/customers',
-    icon: <CIcon icon={cilWc} customClassName="nav-icon" />,
+    icon: <CIcon icon={cilPeople} customClassName="nav-icon" />,
     items: [
       {
         component: CNavItem,
