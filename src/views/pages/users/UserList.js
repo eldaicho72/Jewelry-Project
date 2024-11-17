@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import {
   CCard,
   CButton,
@@ -22,87 +22,149 @@ import {
   CFormSelect,
 } from '@coreui/react'
 
-export const UserList = () => {
+export const UserList = (onUserAdded) => {
   const [filterName, setFilterName] = useState('')
   const [filterId, setFilterId] = useState('')
   const [filterRole, setFilterRole] = useState('Show all')
   const [filterPhone, setFilterPhone] = useState('')
+  const [filterStatus, setFilterStatus] = useState('Show all') // Agregamos filtro de status
   const [visibleAdd, setVisibleAdd] = useState(false)
   const [visibleEdit, setVisibleEdit] = useState(false)
   const [visibleDelete, setVisibleDelete] = useState(false)
   const [selectedUser, setSelectedUser] = useState(null)
+  const [users1, setusers] = useState([])
+  const [id, setId] = useState('')
+  const [first_name, setFirtsName] = useState('')
+  const [last_name, setLastName] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [phone, setPhone] = useState('')
+  const [role_id, setRole_id] = useState('')
+  const [status, setStatus] = useState('')
 
-  const users = [
-    {
-      id: '1',
-      first_name: 'Jesus',
-      last_name: 'Delgado',
-      email: 'eldaicho72@gmailcom',
-      password: '123456',
-      phone: '04141234567',
-      role_id: 'Joyero',
-      status: 'Activo',
-    },
-    {
-      id: '2',
-      first_name: 'Luis',
-      last_name: 'Landkoer',
-      email: 'luislandkoer@gmail.com',
-      password: 'laculpaesdelavaca',
-      phone: '04141234567',
-      role_id: 'Empleado',
-      status: 'Activo',
-    },
-    {
-      id: '3',
-      first_name: 'Gabriel',
-      last_name: 'Gomez',
-      email: 'gabrielgomez@example.com',
-      password: 'password123',
-      phone: '04141234568',
-      role_id: 'Joyero',
-      status: 'Activo',
-    },
-    {
-      id: '4',
-      first_name: 'Nelly',
-      last_name: 'Arciniegas',
-      email: 'nellyarciniegas@example.com',
-      password: 'adminpassword',
-      phone: '04141234569',
-      role_id: 'Admin',
-      status: 'Activo',
-    },
-    {
-      id: '5',
-      first_name: 'Ricardo',
-      last_name: 'Colmenares',
-      email: 'ricardocolmenares@example.com',
-      password: 'joyeropassword',
-      phone: '04141234570',
-      role_id: 'Joyero',
-      status: 'Activo',
-    },
-    {
-      id: '6',
-      first_name: 'Luz',
-      last_name: 'Marina',
-      email: 'luzmarina@example.com',
-      password: 'empleadopassword',
-      phone: '04141234571',
-      role_id: 'Empleado',
-      status: 'Activo',
-    },
-  ]
-
-  const filteredUsers = users.filter((user) => {
+  const filteredUsers = users1.filter((user) => {
     return (
       user.first_name.toLowerCase().includes(filterName.toLowerCase()) &&
-      user.id.includes(filterId) &&
+      user.id.toString().includes(filterId) &&
       (filterRole === 'Show all' || user.role_id === filterRole) &&
-      user.phone.includes(filterPhone)
+      user.phone.includes(filterPhone) &&
+      (filterStatus === 'Show all' || user.status === filterStatus) // Filtro por status
     )
   })
+
+  useEffect(() => {
+    fetchReports()
+  }, [])
+
+  const fetchReports = async () => {
+    try {
+      const response = await fetch('http://localhost:5000/users')
+      const data = await response.json()
+      setusers(data)
+    } catch (error) {
+      console.error('An error occurred while fetching users.', error)
+    }
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    try {
+      const response = await fetch('http://localhost:5000/users', {
+        method: 'POST',
+        headers: {
+          'content-type': 'application/json',
+        },
+        body: JSON.stringify({
+          id, first_name, last_name, email, password, phone, role_id, status
+        }),
+      })
+      if (!response.ok) {
+        throw new Error('Server response error')
+      }
+
+      const newuser = await response.json()
+      setId('')
+      setFirtsName('')
+      setLastName('')
+      setEmail('')
+      setPassword('')
+      setPhone('')
+      setRole_id('')
+      setStatus('')
+      
+      alert('User added successfully!')
+      if (onUserAdded) {
+        onUserAdded(newuser)
+      }
+    } catch (error) {
+      console.error('An error occurred while adding the user. Please try again.', error)
+    }
+  }
+
+  const handleEdit = async (user) => {
+    setSelectedUser(user)
+    setId(user.id)
+    setFirtsName(user.first_name)
+    setLastName(user.last_name)
+    setEmail(user.email)
+    setPhone(user.phone)
+    setRole_id(user.role_id)
+    setStatus(user.status) // Cargar el estado del usuario
+    setVisibleEdit(true)
+  }
+
+  const handleDelete = async (user) => {
+    setSelectedUser(user)
+    setVisibleDelete(true)
+  }
+
+  const handleUpdate = async () => {
+    try {
+      const response = await fetch(`http://localhost:5000/users/${selectedUser.id}`, {
+        method: 'PUT',
+        headers: {
+          'content-type': 'application/json',
+        },
+        body: JSON.stringify({
+          id: selectedUser.id,
+          first_name,
+          last_name,
+          email,
+          password,
+          phone,
+          role_id,
+          status,
+        }),
+      })
+      if (!response.ok) {
+        throw new Error('Error updating user')
+      }
+
+      const updatedUser = await response.json()
+      alert('User updated successfully!')
+      setVisibleEdit(false)
+      fetchReports()
+    } catch (error) {
+      console.error('An error occurred while updating the user.', error)
+    }
+  }
+
+  const handleConfirmDelete = async () => {
+    try {
+      const response = await fetch(`http://localhost:5000/users/${selectedUser.id}`, {
+        method: 'DELETE',
+      })
+      if (!response.ok) {
+        throw new Error('Error deleting user')
+      }
+
+      alert('User deleted successfully!')
+      setVisibleDelete(false)
+      fetchReports()
+    } catch (error) {
+      console.error('An error occurred while deleting the user.', error)
+    }
+  }
 
   return (
     <CCard className="mb-4">
@@ -148,6 +210,16 @@ export const UserList = () => {
               />
             </CCol>
             <CCol md={3}>
+              <CFormSelect
+                value={filterStatus}
+                onChange={(e) => setFilterStatus(e.target.value)} // Filtrar por estado
+              >
+                <option value="Show all">Filter by Status</option>
+                <option value="Active">Active</option>
+                <option value="Inactive">Inactive</option>
+              </CFormSelect>
+            </CCol>
+            <CCol md={3}>
               <CButton color="info" style={{ color: 'white' }} onClick={() => setVisibleAdd(true)}>
                 Add User
               </CButton>
@@ -185,10 +257,7 @@ export const UserList = () => {
                     color="info"
                     variant="outline"
                     size="sm"
-                    onClick={() => {
-                      setSelectedUser(user)
-                      setVisibleEdit(true)
-                    }}
+                    onClick={() => handleEdit(user)}
                     className="me-2"
                   >
                     Edit
@@ -197,10 +266,7 @@ export const UserList = () => {
                     color="danger"
                     variant="outline"
                     size="sm"
-                    onClick={() => {
-                      setSelectedUser(user)
-                      setVisibleDelete(true)
-                    }}
+                    onClick={() => handleDelete(user)}
                   >
                     Delete
                   </CButton>
@@ -210,101 +276,161 @@ export const UserList = () => {
           </CTableBody>
         </CTable>
 
+        {/* Modal Add User */}
         <CModal visible={visibleAdd} onClose={() => setVisibleAdd(false)}>
-          <CModalHeader>
-            <CModalTitle>Add User</CModalTitle>
-          </CModalHeader>
-          <CModalBody>
-            <CFormInput placeholder="First Name" className="mb-3" />
-            <CFormInput placeholder="Last Name" className="mb-3" />
-            <CFormInput placeholder="Email" className="mb-3" />
-            <CFormInput placeholder="Password" className="mb-3" />
-            <CFormInput placeholder="Phone" className="mb-3" />
-            <CFormSelect className="mb-3" defaultValue="">
-              <option value="" disabled hidden>
-                Role ID
-              </option>
-              <option value="Admin">Admin</option>
-              <option value="Joyero">Joyero</option>
-              <option value="Empleado">Empleado</option>
-            </CFormSelect>
-          </CModalBody>
-          <CModalFooter>
-            <CButton color="info" style={{ color: 'white' }} onClick={() => setVisibleAdd(false)}>
-              Save
-            </CButton>
-            <CButton color="danger" style={{ color: 'white' }} onClick={() => setVisibleAdd(false)}>
-              Cancel
-            </CButton>
-          </CModalFooter>
+          <CForm onSubmit={handleSubmit}>
+            <CModalHeader>
+              <CModalTitle>Add User</CModalTitle>
+            </CModalHeader>
+            <CModalBody>
+              <CFormInput
+                value={id}
+                onChange={(e) => setId(e.target.value)}
+                label="ID"
+                required
+              />
+              <CFormInput
+                value={first_name}
+                onChange={(e) => setFirtsName(e.target.value)}
+                label="First Name"
+                required
+              />
+              <CFormInput
+                value={last_name}
+                onChange={(e) => setLastName(e.target.value)}
+                label="Last Name"
+                required
+              />
+              <CFormInput
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                label="Email"
+                required
+              />
+              <CFormInput
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                label="Password"
+                type="password"
+                required
+              />
+              <CFormInput
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+                label="Phone"
+                required
+              />
+              <CFormSelect
+                value={role_id}
+                onChange={(e) => setRole_id(e.target.value)}
+                label="Role"
+                required
+              >
+                <option value="">Select Role</option>
+                <option value="Admin">Admin</option>
+                <option value="Joyero">Joyero</option>
+                <option value="Empleado">Empleado</option>
+              </CFormSelect>
+              <CFormSelect
+                value={status}
+                onChange={(e) => setStatus(e.target.value)}
+                label="Status"
+                required
+              >
+                <option value="Active">Active</option>
+                <option value="Inactive">Inactive</option>
+              </CFormSelect>
+            </CModalBody>
+            <CModalFooter>
+              <CButton color="secondary" onClick={() => setVisibleAdd(false)}>
+                Close
+              </CButton>
+              <CButton color="primary" type="submit">
+                Save
+              </CButton>
+            </CModalFooter>
+          </CForm>
         </CModal>
 
+        {/* Modal Edit User */}
         <CModal visible={visibleEdit} onClose={() => setVisibleEdit(false)}>
-          <CModalHeader>
-            <CModalTitle>Edit User</CModalTitle>
-          </CModalHeader>
-          <CModalBody>
-            <CFormInput
-              placeholder="First Name"
-              defaultValue={selectedUser?.first_name}
-              className="mb-3"
-            />
-            <CFormInput
-              placeholder="Last Name"
-              defaultValue={selectedUser?.last_name}
-              className="mb-3"
-            />
-            <CFormInput
-              placeholder="ID"
-              defaultValue={selectedUser?.id}
-              className="mb-3"
-            />
-            <CFormInput placeholder="Email" defaultValue={selectedUser?.email} className="mb-3" />
-            <CFormInput
-              placeholder="Password"
-              defaultValue={selectedUser?.password}
-              className="mb-3"
-            />
-            <CFormInput
-              placeholder="Phone"
-              defaultValue={selectedUser?.phone}
-              className="mb-3"
-            />
-            <CFormSelect
-              defaultValue={selectedUser?.role_id}
-              className="mb-3"
-            >
-              <option value="" disabled hidden>
-                Role ID
-              </option>
-              <option value="Admin">Admin</option>
-              <option value="Joyero">Joyero</option>
-              <option value="Empleado">Empleado</option>
-            </CFormSelect>
-          </CModalBody>
-          <CModalFooter>
-            <CButton color="info" style={{ color: 'white' }} onClick={() => setVisibleEdit(false)}>
-              Save
-            </CButton>
-            <CButton color="danger" style={{ color: 'white' }} onClick={() => setVisibleEdit(false)}>
-              Cancel
-            </CButton>
-          </CModalFooter>
+          <CForm onSubmit={(e) => { e.preventDefault(); handleUpdate(); }}>
+            <CModalHeader>
+              <CModalTitle>Edit User</CModalTitle>
+            </CModalHeader>
+            <CModalBody>
+              <CFormInput
+                value={id}
+                onChange={(e) => setId(e.target.value)}
+                label="ID"
+                disabled
+              />
+              <CFormInput
+                value={first_name}
+                onChange={(e) => setFirtsName(e.target.value)}
+                label="First Name"
+              />
+              <CFormInput
+                value={last_name}
+                onChange={(e) => setLastName(e.target.value)}
+                label="Last Name"
+              />
+              <CFormInput
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                label="Email"
+              />
+              <CFormInput
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                label="Password"
+                type="password"
+              />
+              <CFormInput
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+                label="Phone"
+              />
+              <CFormSelect
+                value={role_id}
+                onChange={(e) => setRole_id(e.target.value)}
+                label="Role"
+              >
+                <option value="Admin">Admin</option>
+                <option value="Joyero">Joyero</option>
+                <option value="Empleado">Empleado</option>
+              </CFormSelect>
+              <CFormSelect
+                value={status}
+                onChange={(e) => setStatus(e.target.value)}
+                label="Status"
+              >
+                <option value="Active">Active</option>
+                <option value="Inactive">Inactive</option>
+              </CFormSelect>
+            </CModalBody>
+            <CModalFooter>
+              <CButton color="secondary" onClick={() => setVisibleEdit(false)}>
+                Close
+              </CButton>
+              <CButton color="primary" type="submit">
+                Save Changes
+              </CButton>
+            </CModalFooter>
+          </CForm>
         </CModal>
 
+        {/* Modal Delete User */}
         <CModal visible={visibleDelete} onClose={() => setVisibleDelete(false)}>
-          <CModalHeader>
-            <CModalTitle>Delete User</CModalTitle>
-          </CModalHeader>
           <CModalBody>
-            Are you sure you want to delete {selectedUser?.first_name} {selectedUser?.last_name}?
+            <p>Are you sure you want to delete this user?</p>
           </CModalBody>
           <CModalFooter>
-            <CButton color="info" style={{ color: 'white' }} onClick={() => setVisibleDelete(false)}>
-              Save
-            </CButton>
-            <CButton color="danger" style={{ color: 'white' }} onClick={() => setVisibleDelete(false)}>
+            <CButton color="secondary" onClick={() => setVisibleDelete(false)}>
               Cancel
+            </CButton>
+            <CButton color="danger" onClick={handleConfirmDelete}>
+              Delete
             </CButton>
           </CModalFooter>
         </CModal>
@@ -312,6 +438,8 @@ export const UserList = () => {
     </CCard>
   )
 }
+
+
 
 export default UserList
 

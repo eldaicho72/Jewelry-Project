@@ -1,0 +1,34 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "first_name": "Jesus",
+      "last_name": "Delgado",
+      "email": "eldaicho72@gmailcom",
+      "password": "1231412",
+      "phone": "04141234567",
+      "role_id": "Joyero",
+      "status": "Active"
+    },
+    {
+      "id": "2",
+      "first_name": "Carlos",
+      "last_name": "Sanchez",
+      "email": "carlos@gmail.com",
+      "password": "1231412543",
+      "phone": "04142235421",
+      "role_id": "Admin",
+      "status": "Inactive"
+    },
+    {
+      "id": "3",
+      "first_name": "Juan",
+      "last_name": "Guerrero",
+      "email": "juan@gmail.com",
+      "password": "1234567",
+      "phone": "0414214321",
+      "role_id": "Empleado",
+      "status": "Inactive"
+    }
+  ]
+}
