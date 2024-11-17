@@ -71,12 +71,6 @@ const _nav = [
     icon: <CIcon icon={cilDollar} customClassName="nav-icon" />,
   },
   {
-    component: CNavItem,
-    name: 'Payment Methods',
-    to: '/payment-methods',
-    icon: <CIcon icon={cilWallet} customClassName="nav-icon" />,
-  },
-  {
     component: CNavTitle,
     name: 'Inventory & Products',
   },

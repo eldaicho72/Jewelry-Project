@@ -2,6 +2,8 @@ import React from 'react'
 import { UserList } from './views/pages/users/UserList'
 import { CustomersList } from './views/pages/customers/CustomersList'
 import { ProductList } from './views/pages/products/ProductList'
+import { PaymentsList } from './views/pages/payments/PaymentsList'
+import { InvoicesList } from './views/pages/invoices/InvoicesList'
 
 
 const Dashboard = React.lazy(() => import('./views/dashboard/Dashboard'))
@@ -104,6 +106,8 @@ const routes = [
   { path: '/users', name: 'users', element: UserList },
   { path: '/customers', name: 'customers', element: CustomersList },
   { path: '/products', name: 'products', element: ProductList },
+  { path: '/payments', name: 'payments', element: PaymentsList },
+  { path: '/invoices', name: 'invoices', element: InvoicesList },
 
 ]
 
