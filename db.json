@@ -29,6 +29,16 @@
       "phone": "0414214321",
       "role_id": "Empleado",
       "status": "Inactive"
+    },
+    {
+      "id": "4",
+      "first_name": "juancho",
+      "last_name": "pancho",
+      "email": "pancho@gmail.com",
+      "password": "12345342",
+      "phone": "041235312",
+      "role_id": "Empleado",
+      "status": "Inactive"
     }
   ]
 }
