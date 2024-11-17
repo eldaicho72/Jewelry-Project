@@ -81,31 +81,10 @@ const _nav = [
     name: 'Inventory & Products',
   },
   {
-    component: CNavGroup,
+    component: CNavItem,
     name: 'Products',
+    to: '/products',
     icon: <CIcon icon={cilDiamond} customClassName="nav-icon" />,
-    items: [
-      {
-        component: CNavItem,
-        name: 'Product List',
-        to: '/products/product-list',
-      },
-      {
-        component: CNavItem,
-        name: 'Product Categories',
-        to: '/products/product-categories',
-      },
-      {
-        component: CNavItem,
-        name: 'Administration Options',
-        to: '/products/administration-options',
-      },
-      {
-        component: CNavItem,
-        name: 'Export Options',
-        to: '/products/export-options',
-      },
-    ],
   },
   {
     component: CNavItem,
