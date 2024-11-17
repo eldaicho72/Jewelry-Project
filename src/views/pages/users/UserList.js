@@ -27,7 +27,7 @@ export const UserList = (onUserAdded) => {
   const [filterId, setFilterId] = useState('')
   const [filterRole, setFilterRole] = useState('Show all')
   const [filterPhone, setFilterPhone] = useState('')
-  const [filterStatus, setFilterStatus] = useState('Show all') // Agregamos filtro de status
+  const [filterStatus, setFilterStatus] = useState('Show all') // 
   const [visibleAdd, setVisibleAdd] = useState(false)
   const [visibleEdit, setVisibleEdit] = useState(false)
   const [visibleDelete, setVisibleDelete] = useState(false)
@@ -48,7 +48,7 @@ export const UserList = (onUserAdded) => {
       user.id.toString().includes(filterId) &&
       (filterRole === 'Show all' || user.role_id === filterRole) &&
       user.phone.includes(filterPhone) &&
-      (filterStatus === 'Show all' || user.status === filterStatus) // Filtro por status
+      (filterStatus === 'Show all' || user.status === filterStatus) 
     )
   })
 
@@ -109,7 +109,7 @@ export const UserList = (onUserAdded) => {
     setEmail(user.email)
     setPhone(user.phone)
     setRole_id(user.role_id)
-    setStatus(user.status) // Cargar el estado del usuario
+    setStatus(user.status) 
     setVisibleEdit(true)
   }
 
@@ -212,7 +212,7 @@ export const UserList = (onUserAdded) => {
             <CCol md={3}>
               <CFormSelect
                 value={filterStatus}
-                onChange={(e) => setFilterStatus(e.target.value)} // Filtrar por estado
+                onChange={(e) => setFilterStatus(e.target.value)} 
               >
                 <option value="Show all">Filter by Status</option>
                 <option value="Active">Active</option>
@@ -276,7 +276,7 @@ export const UserList = (onUserAdded) => {
           </CTableBody>
         </CTable>
 
-        {/* Modal Add User */}
+       
         <CModal visible={visibleAdd} onClose={() => setVisibleAdd(false)}>
           <CForm onSubmit={handleSubmit}>
             <CModalHeader>
@@ -352,7 +352,7 @@ export const UserList = (onUserAdded) => {
           </CForm>
         </CModal>
 
-        {/* Modal Edit User */}
+        
         <CModal visible={visibleEdit} onClose={() => setVisibleEdit(false)}>
           <CForm onSubmit={(e) => { e.preventDefault(); handleUpdate(); }}>
             <CModalHeader>
@@ -420,7 +420,6 @@ export const UserList = (onUserAdded) => {
           </CForm>
         </CModal>
 
-        {/* Modal Delete User */}
         <CModal visible={visibleDelete} onClose={() => setVisibleDelete(false)}>
           <CModalBody>
             <p>Are you sure you want to delete this user?</p>
