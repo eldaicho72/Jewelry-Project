@@ -4,8 +4,8 @@
       "id": "1",
       "first_name": "Jesus",
       "last_name": "Delgado",
-      "email": "eldaicho72@gmailcom",
-      "password": "1231412",
+      "email": "eldaicho725656@gmail.com",
+      "password": "132134134",
       "phone": "04141234567",
       "role_id": "Joyero",
       "status": "Active"
@@ -39,6 +39,16 @@
       "phone": "041235312",
       "role_id": "Empleado",
       "status": "Inactive"
+    },
+    {
+      "id": "5",
+      "first_name": "Maria",
+      "last_name": "Lopez",
+      "email": "marialopez@gmail.com",
+      "password": "123456789",
+      "phone": "04248743567",
+      "role_id": "Empleado",
+      "status": ""
     }
   ]
 }
