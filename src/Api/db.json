@@ -49,6 +49,16 @@
       "phone": "04248743567",
       "role_id": "Empleado",
       "status": ""
+    },
+    {
+      "id": "6",
+      "first_name": "Angela",
+      "last_name": "VIllamizar",
+      "email": "angelavillamizar@gmail.com",
+      "password": "1726438712647821",
+      "phone": "04247741424",
+      "role_id": "Empleado",
+      "status": "Active"
     }
   ]
 }
